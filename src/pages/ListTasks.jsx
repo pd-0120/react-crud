@@ -17,7 +17,7 @@ import { useLocation } from "react-router-dom";
 export const ListTasks = () => {
 	const [posts, setPosts] = useState([]);
 	const router = useLocation();
-    const endpoint = import.meta.env.API_ENDPOINT;
+    const endpoint = import.meta.env.VITE_API_ENDPOINT;
 
 	const getPosts = () => {
 		axios.get(`${endpoint}tasks`).then((res) => setPosts(res.data));

@@ -24,7 +24,7 @@ export default function TaskForm(props) {
 	const router = useLocation();
 	
 	const { task } = props;
-    const endpoint = import.meta.env.API_ENDPOINT;
+    const endpoint = import.meta.env.VITE_API_ENDPOINT;
 	const handleSubmit = (fields, props) => {
 		if (task) {
 			axios.put(`${endpoint}tasks/${task.id}/update`, fields);
