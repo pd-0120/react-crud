@@ -9,6 +9,7 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
+	Skeleton
 } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,9 +20,11 @@ export const ListTasks = () => {
 	const navigate = useNavigate();
     const endpoint = import.meta.env.VITE_API_ENDPOINT;
 	const [isLoading, setIsloading] = useState(false);
+	const [isDataLoading, setDataLoading] = useState(false);
 
 	const getPosts = () => {
-		axios.get(`${endpoint}tasks`).then((res) => setPosts(res.data));
+		setDataLoading(true);
+		axios.get(`${endpoint}tasks`).then((res) => {setDataLoading(false);setPosts(res.data);});
 	};
 
 	useEffect(() => {
@@ -53,6 +56,16 @@ export const ListTasks = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
+						{isDataLoading &&
+							[...Array(5)].map((v, i) => (
+								<TableRow ley={i}>
+									<TableCell><Skeleton/></TableCell>
+									<TableCell><Skeleton/></TableCell>
+									<TableCell><Skeleton/></TableCell>
+									<TableCell><Skeleton/></TableCell>
+									<TableCell><Skeleton/></TableCell>
+								</TableRow>
+							))}
 						{posts.length > 0 &&
 							posts.map((post, i) => {
 								return (
