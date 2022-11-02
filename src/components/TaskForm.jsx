@@ -12,7 +12,7 @@ import React from "react";
 import axios from "axios";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const validationSceama = Yup.object().shape({
 	name: Yup.string().min(5).max(15).required(),
@@ -21,7 +21,7 @@ const validationSceama = Yup.object().shape({
 });
 
 export default function TaskForm(props) {
-	const router = useLocation();
+	const navigate = useNavigate();
 	
 	const { task } = props;
     const endpoint = import.meta.env.VITE_API_ENDPOINT;
@@ -31,7 +31,7 @@ export default function TaskForm(props) {
 		} else {
 			axios.post(`${endpoint}tasks/create`, fields);
 		}
-		router.push("list-tasks");
+		navigate("/list-tasks");
 	};
 	return (
 		<Box mt={2}>

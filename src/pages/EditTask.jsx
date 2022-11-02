@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TaskForm from "../components/TaskForm";
-import { useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const EditTask = () => {
-	const router = useLocation();
+	const { id } = useParams();
+	const navigate = useNavigate();
 	
 	const [task, setTask] = useState({});
 
 	useEffect(() => {
-		console.log("🚀 ~ file: EditTask.jsx ~ line 13 ~ useEffect ~ router", router)
-		if (router.query.id) {
-			axios
-				.get(`/api/tasks/${router.query.id}`)
-				.then((res) => {
+		if (id) {
+			const endpoint = import.meta.env.VITE_API_ENDPOINT;
+
+			axios.get(`${endpoint}tasks/${id}`).then((res) => {
 					setTask(res.data.post);
 				})
 				.catch(() => {
-					router.push("/list-tasks");
+					navigate("/list-tasks");
 				});
-		} else {
-			router.push("/list-tasks");
 		}
-	}, [router]);
+	}, [id]);
 
 	return <>{Object.entries(task).length > 0 && <TaskForm task={task} />}</>;
 }

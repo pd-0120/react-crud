@@ -12,11 +12,11 @@ import {
 } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ListTasks = () => {
 	const [posts, setPosts] = useState([]);
-	const router = useLocation();
+	const navigate = useNavigate();
     const endpoint = import.meta.env.VITE_API_ENDPOINT;
 
 	const getPosts = () => {
@@ -29,7 +29,7 @@ export const ListTasks = () => {
 
 	const handleAction = (action, id) => {
 		if (action === "edit") {
-			router.push(`/edit-task/${id}`);
+			navigate(`/edit-task/${id}`);
 		} else {
 			axios.delete(`${endpoint}tasks/${id}/delete`).then(() => {
 				getPosts();
