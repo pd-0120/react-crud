@@ -18,6 +18,7 @@ export const ListTasks = () => {
 	const [posts, setPosts] = useState([]);
 	const navigate = useNavigate();
     const endpoint = import.meta.env.VITE_API_ENDPOINT;
+	const [isLoading, setIsloading] = useState(false);
 
 	const getPosts = () => {
 		axios.get(`${endpoint}tasks`).then((res) => setPosts(res.data));
@@ -31,8 +32,10 @@ export const ListTasks = () => {
 		if (action === "edit") {
 			navigate(`/edit-task/${id}`);
 		} else {
+			setIsloading(true);
 			axios.delete(`${endpoint}tasks/${id}/delete`).then(() => {
 				getPosts();
+				setIsloading(false);
 			});
 		}
 	};
@@ -77,6 +80,7 @@ export const ListTasks = () => {
 												variant="contained"
 												color={"error"}
 												sx={{ mt: 1, ml: 1 }}
+												disabled={isLoading}
 												onClick={() =>
 													handleAction(
 														"delete",

@@ -8,7 +8,7 @@ import {
 	TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React , { useState } from "react";
 import axios from "axios";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -25,13 +25,21 @@ export default function TaskForm(props) {
 	
 	const { task } = props;
     const endpoint = import.meta.env.VITE_API_ENDPOINT;
+	const [isLoading, setIsloading] = useState(false);
+
 	const handleSubmit = (fields, props) => {
+		setIsloading(true)
 		if (task) {
-			axios.put(`${endpoint}tasks/${task.id}/update`, fields);
+			axios.put(`${endpoint}tasks/${task.id}/update`, fields).then(() => {
+				setIsloading(false); 
+				navigate("/list-tasks")
+			});
 		} else {
-			axios.post(`${endpoint}tasks/create`, fields);
+			axios.post(`${endpoint}tasks/create`, fields).then(() => {
+				setIsloading(false);
+				navigate("/list-tasks");
+			});
 		}
-		navigate("/list-tasks");
 	};
 	return (
 		<Box mt={2}>
@@ -101,7 +109,11 @@ export default function TaskForm(props) {
 							</Grid>
 							<Grid item sm={6}></Grid>
 							<Grid item sm={6}>
-								<Button variant={"contained"} type={"submit"}>
+								<Button
+									variant={"contained"}
+									type={"submit"}
+									disabled={isLoading}
+								>
 									Submit
 								</Button>
 							</Grid>
