@@ -10,6 +10,8 @@ import {
 	Stack,
 } from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+
 export default function Header() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -18,7 +20,7 @@ export default function Header() {
 					<Toolbar>
 						<Grid container justifyContent={"space-around"}>
 							<Grid item xs={6}>
-								<Link href="/">
+								<Link component={RouterLink} to="/">
 									<Typography
 										variant="h6"
 										component="div"
@@ -30,9 +32,9 @@ export default function Header() {
 								</Link>
 							</Grid>
 
-							<Grid item sx={2} textAlign={"end"}>
+							<Grid item xs={6} textAlign={"end"}>
 								<Stack direction={"row"} spacing={2}>
-									<Link href="/add-task">
+									<Link component={RouterLink} to="/add-task">
 										<Button
 											color="inherit"
 											sx={{ color: "white" }}
@@ -40,7 +42,7 @@ export default function Header() {
 											Add New Task
 										</Button>
 									</Link>
-									<Link href="/list-tasks">
+									<Link component={RouterLink} to="/list-tasks">
 										<Button
 											color="inherit"
 											sx={{ color: "white" }}
