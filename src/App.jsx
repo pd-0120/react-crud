@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { ListTasks } from "./pages/ListTasks";
 import { AddTask } from "./pages/AddTask";
 import { EditTask } from "./pages/EditTask";
+import { Container } from "@mui/system";
 
 const routes = [
 	{
@@ -29,6 +30,7 @@ function App() {
 	return (
 		<>
 			<Header />
+			<Container>
 				<Routes>
 					{routes.map((route, i) => (
 						<Route
@@ -38,6 +40,7 @@ function App() {
 						/>
 					))}
 				</Routes>
+			</Container>
 			<Footer />
 		</>
 	);
